@@ -1,6 +1,11 @@
 import ETHIcon from "./media/tokens/eth.svg";
 import WETHIcon from "./media/tokens/weth.svg";
 
+export enum ASSET_TYPE {
+  ERC20 = "ERC20",
+  ERC721 = "ERC721",
+}
+
 export type TokenConfig = {
   address: string;
   name?: string;
@@ -8,6 +13,7 @@ export type TokenConfig = {
   imageUri?: string;
   resourceId: string;
   isNativeWrappedToken?: boolean;
+  type: ASSET_TYPE;
 };
 
 export type BridgeConfig = {
@@ -16,6 +22,7 @@ export type BridgeConfig = {
   name: string;
   bridgeAddress: string;
   erc20HandlerAddress: string;
+  erc721HandlerAddress: string;
   rpcUrl: string;
   type: "Ethereum" | "Substrate";
   tokens: TokenConfig[];
@@ -33,11 +40,12 @@ export const chainbridgeConfig: ChainbridgeConfig = {
   // Goerli - Kotti Bridge
   chains: [
     {
-      chainId: 1,
+      chainId: 0,
       networkId: 5,
       name: "Ethereum - Goerli",
-      bridgeAddress: "0x2524d71D163f60747630c4EBeB077a9832329646",
-      erc20HandlerAddress: "0xDc26320258ADfd806d125223Fb0F94e54D13FA51",
+      bridgeAddress: "0x6E5F2106184b90B030622D7E353244C27c5e2d83",
+      erc20HandlerAddress: "0xa8EDC7ad8ab91cDCaB6a033Ed63b70B45917dE61",
+      erc721HandlerAddress: "0x8CFce9C250615E92e56A4dA09D833B270222E910",
       rpcUrl: "https://goerli.prylabs.net",
       type: "Ethereum",
       blockExplorer: "https://goerli.etherscan.io/tx",
@@ -48,6 +56,7 @@ export const chainbridgeConfig: ChainbridgeConfig = {
           name: "Wrapped ETC",
           symbol: "wETC",
           imageUri: WETHIcon,
+          type: ASSET_TYPE.ERC20,
           resourceId:
             "0x000000000000000000000023A9FD05ef0c5fb9dDE964C4d4191A169Fd221f802",
         },
@@ -55,6 +64,7 @@ export const chainbridgeConfig: ChainbridgeConfig = {
           address: "0x14dD060dB55c0E7cc072BD3ab4709d55583119c0",
           name: "An ERC20",
           symbol: "ERC20",
+          type: ASSET_TYPE.ERC20,
           imageUri: ETHIcon,
           resourceId:
             "0x000000000000000000000014dD060dB55c0E7cc072BD3ab4709d55583119c001",
@@ -62,11 +72,12 @@ export const chainbridgeConfig: ChainbridgeConfig = {
       ],
     },
     {
-      chainId: 2,
+      chainId: 6,
       networkId: 6,
       name: "Ethereum Classic - Kotti",
-      bridgeAddress: "0x2524d71D163f60747630c4EBeB077a9832329646",
-      erc20HandlerAddress: "0xDc26320258ADfd806d125223Fb0F94e54D13FA51",
+      bridgeAddress: "0x8f2f8D538BA3b52cb5B969E6c11507738A805C5D",
+      erc20HandlerAddress: "0x6E5F2106184b90B030622D7E353244C27c5e2d83",
+      erc721HandlerAddress: "0xa8EDC7ad8ab91cDCaB6a033Ed63b70B45917dE61",
       rpcUrl: "https://www.ethercluster.com/kotti",
       type: "Ethereum",
       blockExplorer: "https://blockscout.com/etc/kotti/tx",
@@ -77,6 +88,7 @@ export const chainbridgeConfig: ChainbridgeConfig = {
           name: "Wrapped ETC",
           symbol: "wETC",
           imageUri: WETHIcon,
+          type: ASSET_TYPE.ERC20,
           resourceId:
             "0x000000000000000000000023A9FD05ef0c5fb9dDE964C4d4191A169Fd221f802",
           isNativeWrappedToken: true,
@@ -86,8 +98,18 @@ export const chainbridgeConfig: ChainbridgeConfig = {
           name: "An ERC20",
           symbol: "ERC20",
           imageUri: ETHIcon,
+          type: ASSET_TYPE.ERC20,
           resourceId:
             "0x000000000000000000000014dD060dB55c0E7cc072BD3ab4709d55583119c001",
+        },
+        {
+          address: "0x14dD060dB55c0E7cc072BD3ab4709d55583119c0",
+          name: "An ERC20",
+          symbol: "ERC20",
+          imageUri: ETHIcon,
+          type: ASSET_TYPE.ERC721,
+          resourceId:
+            "0x0000000000000000000000004467982362af543Ab8EbC6BEE25D33CF8d13bA1A",
         },
       ],
     },

@@ -12,7 +12,11 @@ import { lightTheme } from "./Themes/LightTheme";
 import { ChainbridgeProvider } from "./Contexts/ChainbridgeContext";
 import AppWrapper from "./Layouts/AppWrapper";
 import { Web3Provider } from "@chainsafe/web3-context";
-import { chainbridgeConfig } from "./chainbridgeConfig";
+import {
+  ASSET_TYPE,
+  chainbridgeConfig,
+  TokenConfig,
+} from "./chainbridgeConfig";
 import { utils } from "ethers";
 
 if (
@@ -30,7 +34,9 @@ const App: React.FC<{}> = () => {
   const tokens = chainbridgeConfig.chains.reduce((tca, bc) => {
     return {
       ...tca,
-      [bc.networkId]: bc.tokens,
+      [bc.networkId]: bc.tokens.filter(
+        (token: TokenConfig) => token.type === ASSET_TYPE.ERC20
+      ),
     };
   }, {});
   return (
